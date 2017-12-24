@@ -5,8 +5,32 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfRxDemo"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
-    <Grid>
+        Title="MainWindow" Height="350" Width="525" d:DataContext="{d:DesignInstance local:MainWindowViewModel}">
+    <Window.Resources>
+        <Style TargetType="TextBox">
+            <Setter Property="Margin" Value="10"/>
+        </Style>
+        <Style TargetType="TextBlock">
+            <Setter Property="Margin" Value="10, 0, 10, 10" />
+            <Setter Property="FontSize" Value="16" />
+        </Style>
+        <Style TargetType="ListView">
+            <Setter Property="Margin" Value="10, 0, 10, 10" />
+            <Setter Property="Background" Value="AliceBlue" />
+            <Setter Property="BorderThickness" Value="1"/>
+        </Style>
         
+    </Window.Resources>
+    <Grid>
+        <StackPanel>
+            <TextBox x:Name="Input"
+                     Text="{Binding Path=Input, UpdateSourceTrigger=PropertyChanged}" 
+                     IsEnabled="{Binding Path=IsInputFieldEnabled}"
+                     />
+            <TextBlock Text="PROCESSING..." 
+                       Visibility="{Binding Path=IsProcessingInput, UpdateSourceTrigger=PropertyChanged}" />
+            <ListView ItemsSource="{Binding Path=Items}"
+                      Visibility="{Binding Path=IsItemsVisible, UpdateSourceTrigger=PropertyChanged}" />
+        </StackPanel>
     </Grid>
 </Window>
